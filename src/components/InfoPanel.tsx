@@ -92,7 +92,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ node, isOpen, onNext, onClose, on
                   </div>
                 </div>
               )}
-              
+              </div>
             {/* 3. 停留时长 & 见闻 - 竖排 */}
             <div className="flex flex-col h-full shrink-0 gap-6 border-r border-[#d4af37]/15 pr-6">
                <div className="flex flex-col gap-2">
