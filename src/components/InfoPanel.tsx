@@ -79,20 +79,20 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ node, isOpen, onNext, onClose, on
                 </div>
               )}
 
-              {/* 足迹时间轴 - 竖排 */}
+                           {/* 足迹时间轴 - 竖排 */}
               {node.timeline && node.timeline.length > 0 && (
                 <div className="timeline-box-v !border-t !border-l-0 !pt-4 !pl-0 flex flex-col items-start">
-                <div className="timeline-title-v !text-lg !mb-4 writing-vertical">足迹游踪</div>
+                  <div className="timeline-title-v !text-lg !mb-4 writing-vertical">足迹游踪</div>
                   <div className="flex flex-row-reverse gap-4 h-full overflow-x-auto custom-scrollbar-h">
                     {node.timeline.map((point, idx) => (
-                   88  |                     {node.timeline.map((point, idx) => (
-89  |                       <div key={idx} className="timeline-node-v !text-sm !text-[#555] writing-vertical h-fit relative pt-4 before:!top-0 before:!left-1/2 before:!-translate-x-1/2 before:!w-1.5 before:!h-1.5 before:bg-[#c5a059] before:rounded-full before:absolute">{point}</div>
-90  |                     ))}
-91  |                   </div>
-92  |                 </div>
-93  |               )}
-94  |             </div>
-  
+                      <div key={idx} className="timeline-node-v !text-sm !text-[#555] writing-vertical h-fit relative pt-4 before:!top-0 before:!left-1/2 before:!-translate-x-1/2 before:!w-1.5 before:!h-1.5 before:bg-[#c5a059] before:rounded-full before:absolute">
+                        {point}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
             {/* 3. 停留时长 & 见闻 - 竖排 */}
             <div className="flex flex-col h-full shrink-0 gap-6 border-r border-[#d4af37]/15 pr-6">
                <div className="flex flex-col gap-2">
