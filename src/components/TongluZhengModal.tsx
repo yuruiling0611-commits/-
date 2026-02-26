@@ -138,9 +138,12 @@ const TongluZhengModal: React.FC<TongluZhengModalProps> = ({
               <div className="shoujin-font text-xs text-[#d4af37] opacity-60 tracking-widest">
                 第 {entryCount} 篇 · 墨迹回响
               </div>
-              <div className="w-14 h-14 border-2 border-[#d4af37] rounded-sm flex items-center justify-center text-[#d4af37] shoujin-font text-[10px] rotate-[-15deg] bg-black/20 shadow-inner">
+              <button 
+                onClick={onClose}
+                className="w-14 h-14 border-2 border-[#d4af37] rounded-sm flex items-center justify-center text-[#d4af37] shoujin-font text-[10px] rotate-[-15deg] bg-black/20 shadow-inner hover:bg-[#d4af37] hover:text-[#a22121] transition-all active:scale-90"
+              >
                 万里<br/>同路
-              </div>
+              </button>
             </motion.div>
           </div>
         </motion.div>

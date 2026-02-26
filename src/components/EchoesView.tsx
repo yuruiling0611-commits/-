@@ -162,7 +162,7 @@ const EchoesView: React.FC<EchoesViewProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[5000] bg-[#f4f1ea] flex flex-col items-center justify-center overflow-hidden font-serif">
+    <div className="fixed inset-0 z-[5000] bg-[#f4f1ea] flex flex-col items-center justify-center overflow-hidden shoujin-font">
       {/* Rice paper texture */}
       <div className="absolute inset-0 opacity-40 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/handmade-paper.png')]"></div>
       
@@ -203,26 +203,26 @@ const EchoesView: React.FC<EchoesViewProps> = ({ onBack }) => {
       {!showInput && !showHistory && (
         <div className="flex flex-row-reverse items-center justify-center gap-16 h-[60vh]">
           <AnimatePresence>
-            {prologueStage >= 1 && prologueStage < 3 && (
+            {prologueStage === 1 && (
               <motion.span 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 2 }}
-                className="brush-font text-6xl md:text-8xl text-[#1a1a1a] writing-vertical tracking-[0.5em]"
+                className="shoujin-font text-6xl md:text-8xl text-[#1a1a1a] writing-vertical tracking-[0.5em] whitespace-nowrap"
               >
                 君之所至
               </motion.span>
             )}
           </AnimatePresence>
           <AnimatePresence>
-            {prologueStage >= 2 && prologueStage < 3 && (
+            {prologueStage === 2 && (
               <motion.span 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 2 }}
-                className="brush-font text-6xl md:text-8xl text-[#1a1a1a] writing-vertical tracking-[0.5em]"
+                className="shoujin-font text-6xl md:text-8xl text-[#1a1a1a] writing-vertical tracking-[0.5em] whitespace-nowrap"
               >
                 皆为江山
               </motion.span>
@@ -239,10 +239,10 @@ const EchoesView: React.FC<EchoesViewProps> = ({ onBack }) => {
             {/* Fine Rice Paper Texture */}
             <div className="absolute inset-0 opacity-[0.15] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/handmade-paper.png')]"></div>
             <div className="absolute inset-0 pointer-events-none opacity-[0.03] flex items-center justify-center select-none">
-              <span className="shoujin-font text-[12vw] writing-vertical tracking-[1em] text-[#1a1a1a]">朝碧海而暮苍梧</span>
+              <span className="shoujin-font text-[10vw] writing-vertical tracking-[1em] text-[#1a1a1a]">朝碧海而暮苍梧</span>
             </div>
             
-            {/* Traditional Stationery Red Grid (Song Style) */}
+            {/* Traditional Stationery Red Grid (Song Style) - Vertical */}
             <div className="absolute inset-0 pointer-events-none flex justify-around px-12 py-16 opacity-[0.08]">
               {Array.from({ length: 12 }).map((_, i) => (
                 <div key={i} className="w-px h-full bg-[#a22121]" />
@@ -263,12 +263,13 @@ const EchoesView: React.FC<EchoesViewProps> = ({ onBack }) => {
             </div>
 
             {/* Writing Area */}
-            <div className="relative flex-1 w-full flex justify-center min-h-0 z-10">
+            <div className="relative flex-1 w-full flex justify-center min-h-0 z-10 overflow-x-auto custom-scrollbar-h">
               <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="在此续写君之游踪..."
-                className="w-full h-full bg-transparent border-none focus:ring-0 text-2xl md:text-3xl lg:text-4xl leading-[2.4] text-[#1a1a1a] writing-vertical tracking-[0.25em] placeholder:text-gray-200 resize-none shoujin-font custom-scrollbar"
+                className="h-full bg-transparent border-none focus:ring-0 text-2xl md:text-3xl lg:text-4xl leading-[2.4] text-[#1a1a1a] writing-vertical tracking-[0.25em] placeholder:text-gray-200 resize-none shoujin-font"
+                style={{ width: 'max-content', minWidth: '100%' }}
               />
             </div>
 
@@ -342,7 +343,7 @@ const EchoesView: React.FC<EchoesViewProps> = ({ onBack }) => {
                   <div className="absolute top-2 right-4 text-[8px] text-[#8b4513] opacity-30 font-serif">
                     {formatDate(entry.timestamp)}
                   </div>
-                  <div className="text-2xl md:text-3xl leading-[2.2] text-[#1a1a1a] writing-vertical tracking-[0.2em] h-64 overflow-x-auto custom-scrollbar py-2 shoujin-font flex-1">
+                  <div className="text-2xl md:text-3xl leading-[2.2] text-[#1a1a1a] writing-vertical tracking-[0.2em] h-64 overflow-x-auto custom-scrollbar-h py-2 shoujin-font flex-1">
                     {entry.content}
                   </div>
                   {/* Decorative seal for each entry */}

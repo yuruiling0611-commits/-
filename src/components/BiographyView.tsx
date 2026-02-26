@@ -134,7 +134,7 @@ const BiographyView: React.FC<BiographyViewProps> = ({ onBack, onRestart, onGoTo
 
   return (
     <div 
-      className={`relative w-screen h-screen overflow-hidden transition-colors duration-1000 font-serif ${isProfileMode ? 'bg-[#edeae2]' : 'bg-[#f4f1ea]'}`}
+      className={`relative w-screen h-screen overflow-hidden transition-colors duration-1000 shoujin-font ${isProfileMode ? 'bg-[#edeae2]' : 'bg-[#f4f1ea]'}`}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
@@ -386,7 +386,7 @@ const BiographyView: React.FC<BiographyViewProps> = ({ onBack, onRestart, onGoTo
                       <h2 className="shoujin-font text-5xl text-[#1a1a1a] mb-4 tracking-widest">{stage.title}</h2>
                       <div className="w-24 h-1 bg-[#d4af37]"></div>
                     </div>
-                    <div className="text-xl leading-[2.1] text-[#333] mb-12 text-justify font-serif">
+                    <div className="text-2xl leading-[2.1] text-[#333] mb-12 text-justify shoujin-font tracking-widest">
                       {stage.summary.split('\n\n').map((para, i) => <p key={i} className="mb-8 indent-12">{para}</p>)}
                     </div>
                     <div className="mt-auto min-h-[180px]">

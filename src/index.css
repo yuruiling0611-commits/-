@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Long+Cang&family=Ma+Shan+Zheng&family=Liu+Jian+Mao+Cao&family=Noto+Serif+SC:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,11 +31,15 @@ body.locked {
 }
 
 .shoujin-font {
-    font-family: 'Ma Shan Zheng', cursive;
+    font-family: 'Long Cang', cursive;
 }
 
 .brush-font {
-    font-family: 'Zhi Mang Xing', cursive;
+    font-family: 'Liu Jian Mao Cao', cursive;
+}
+
+.calligraphy-font {
+    font-family: 'Ma Shan Zheng', cursive;
 }
 
 /* 洒金宣纸层 */
@@ -149,9 +154,9 @@ body.locked {
 }
 
 @keyframes sealFadeOut {
-    0% { opacity: 0; transform: scale(3) rotate(var(--seal-rot)); filter: blur(15px); }
-    3% { opacity: 1; transform: scale(1) rotate(var(--seal-rot)); filter: blur(0px); }
-    10% { opacity: 0.9; transform: scale(0.95) rotate(var(--seal-rot)); }
+    0% { opacity: 1; transform: scale(1.2) rotate(var(--seal-rot)); filter: blur(0px); }
+    5% { opacity: 1; transform: scale(1) rotate(var(--seal-rot)); }
+    15% { opacity: 0.9; transform: scale(0.95) rotate(var(--seal-rot)); }
     70% { opacity: 0.7; transform: scale(1.05) rotate(var(--seal-rot)); filter: blur(1px); }
     100% { opacity: 0; transform: scale(1.5) rotate(var(--seal-rot)); filter: blur(20px); }
 }
@@ -184,6 +189,38 @@ body.locked {
     writing-mode: vertical-rl;
 }
 
+@keyframes ink-bleed {
+  0% { transform: scale(0.8); opacity: 0; filter: blur(10px); }
+  20% { opacity: 0.4; filter: blur(5px); }
+  100% { transform: scale(2.5); opacity: 0; filter: blur(20px); }
+}
+
+@keyframes ink-bleed-slow {
+  0% { transform: scale(0.5); opacity: 0; filter: blur(15px); }
+  30% { opacity: 0.2; filter: blur(8px); }
+  100% { transform: scale(3.5); opacity: 0; filter: blur(30px); }
+}
+
+.animate-ink-bleed {
+  animation: ink-bleed 3s ease-out infinite;
+}
+
+.animate-ink-bleed-slow {
+  animation: ink-bleed-slow 5s ease-out infinite;
+}
+
+/* 竖排文字自定义滚动条 */
+.custom-scrollbar-h::-webkit-scrollbar {
+  height: 4px;
+}
+.custom-scrollbar-h::-webkit-scrollbar-track {
+  background: rgba(139, 69, 19, 0.05);
+}
+.custom-scrollbar-h::-webkit-scrollbar-thumb {
+  background: rgba(139, 69, 19, 0.2);
+  border-radius: 2px;
+}
+
 .ripped-edge {
     background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
     background-repeat: repeat;
@@ -208,20 +245,6 @@ body.locked {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.custom-scrollbar-h::-webkit-scrollbar {
-    height: 4px;
-    width: 4px;
-}
-
-.custom-scrollbar-h::-webkit-scrollbar-thumb {
-    background: var(--seal-red);
-    border-radius: 10px;
-}
-
-.custom-scrollbar-h::-webkit-scrollbar-track {
     background: transparent;
 }
 
@@ -285,26 +308,6 @@ body.locked {
     transform: translateY(-50%);
 }
 
-.timeline-box-v {
-    border-top: 1px dashed var(--gold-accent);
-    padding-top: 20px;
-    margin: 0 20px;
-}
-
-.timeline-title-v {
-    font-family: 'Ma Shan Zheng', cursive;
-    color: var(--gold-accent);
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-}
-
-.timeline-node-v {
-    position: relative;
-    padding: 0 5px;
-    font-size: 0.9rem;
-    color: #666;
-}
-
 .adventure-box {
     background: rgba(157, 41, 25, 0.03);
     border: 1px solid rgba(157, 41, 25, 0.1);
@@ -330,13 +333,12 @@ body.locked {
 }
 
 .original-quote {
-    writing-mode: vertical-rl;
     font-family: 'Ma Shan Zheng', cursive;
-    font-size: 1.8rem;
+    font-size: 1.2rem;
     color: var(--ink-deep);
     opacity: 0.15;
-    line-height: 1.5;
-    letter-spacing: 0.2em;
+    line-height: 1.8;
+    letter-spacing: 0.1em;
 }
 
 /* TOC Panel */

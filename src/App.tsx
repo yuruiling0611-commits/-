@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { TRAVEL_DATA } from './constants';
 import InfoPanel from './components/InfoPanel';
 import InkTrail from './components/InkTrail';
-import ParallaxMountains from './components/ParallaxMountains';
 import BiographyView from './components/BiographyView';
 import CursorInkTrail from './components/CursorInkTrail';
 import ModernGuideModal from './components/ModernGuideModal';
@@ -19,7 +18,6 @@ const App: React.FC = () => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [isTocOpen, setIsTocOpen] = useState(false);
-  const [scrollLeft, setScrollLeft] = useState(0);
   const [scene, setScene] = useState<SceneType>('start');
   const [isFinished, setIsFinished] = useState(false);
   const [scrollSpeed, setScrollSpeed] = useState(0);
@@ -44,7 +42,6 @@ const App: React.FC = () => {
       // Use requestAnimationFrame for smoother updates
       rafId = requestAnimationFrame(() => {
         setScrollSpeed(speed);
-        setScrollLeft(currentScroll);
         lastScrollLeft.current = currentScroll;
       });
 
@@ -253,6 +250,7 @@ const App: React.FC = () => {
     const currentIdx = currentStep;
 
     setIsPanelOpen(false);
+    setIsGuideOpen(false); // 同时关闭现代锦囊画面
 
     setTimeout(() => {
       if (!stampedIndices.includes(currentIdx)) {
@@ -311,10 +309,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const handleGlobalDoubleClick = (e: MouseEvent) => {
+      // 阻止默认行为，确保印章产生
       const x = e.clientX;
       const y = e.clientY;
       const rotation = (Math.random() - 0.5) * 40;
-      const sealTexts = ['霞客', '游踪', '墨游', '万里', '同路'];
+      const sealTexts = ['霞客', '游踪', '墨游', '万里', '同路', '寻幽', '壮游'];
       const randomText = sealTexts[Math.floor(Math.random() * sealTexts.length)];
       
       const seal = document.createElement('div');
@@ -324,15 +323,26 @@ const App: React.FC = () => {
       seal.style.setProperty('--seal-rot', `${rotation}deg`);
       seal.innerText = randomText;
       
+      // 确保印章在最顶层
+      seal.style.zIndex = '10000';
+      
       document.body.appendChild(seal);
       
+      // 增加一个微小的震动反馈（如果支持）
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(10);
+      }
+      
       setTimeout(() => {
-        seal.remove();
+        if (seal.parentNode) {
+          seal.remove();
+        }
       }, 5000);
     };
 
-    window.addEventListener('dblclick', handleGlobalDoubleClick);
-    return () => window.removeEventListener('dblclick', handleGlobalDoubleClick);
+    // 使用 capture: true 确保在事件冒泡前捕获，防止被其他组件的 stopPropagation 拦截
+    window.addEventListener('dblclick', handleGlobalDoubleClick, { capture: true });
+    return () => window.removeEventListener('dblclick', handleGlobalDoubleClick, { capture: true });
   }, []);
 
   return (
@@ -381,10 +391,10 @@ const App: React.FC = () => {
         <div className="quote-container fixed inset-0 z-[4000] bg-[#f4f1ea] flex items-center justify-center overflow-hidden">
            <div className="absolute inset-0 pointer-events-none opacity-30 bg-[url('https://www.transparenttextures.com/patterns/handmade-paper.png')]"></div>
            <div className="flex flex-row-reverse items-center justify-center gap-16 md:gap-24 h-full max-h-[70vh]">
-              <div className="quote-line opacity-0 translate-y-6 blur-md brush-font text-[#1a1a1a] text-3xl md:text-4xl lg:text-5xl tracking-[0.6em] writing-vertical leading-tight whitespace-nowrap">
+              <div className="quote-line opacity-0 translate-y-6 blur-md shoujin-font text-[#1a1a1a] text-3xl md:text-4xl lg:text-5xl tracking-[0.6em] writing-vertical leading-tight whitespace-nowrap">
                 癸丑之三月晦，
               </div>
-              <div className="quote-line opacity-0 translate-y-6 blur-md brush-font text-[#1a1a1a] text-3xl md:text-4xl lg:text-5xl tracking-[0.6em] writing-vertical leading-tight whitespace-nowrap">
+              <div className="quote-line opacity-0 translate-y-6 blur-md shoujin-font text-[#1a1a1a] text-3xl md:text-4xl lg:text-5xl tracking-[0.6em] writing-vertical leading-tight whitespace-nowrap">
                 自宁海出西海门。
               </div>
            </div>
@@ -458,7 +468,6 @@ const App: React.FC = () => {
 
           <div ref={scrollRef} className="flex-1 overflow-x-auto overflow-y-hidden relative select-none cursor-grab active:cursor-grabbing py-24 custom-scrollbar">
             <div className="w-[3000px] h-full relative flex items-center">
-              <ParallaxMountains scrollLeft={scrollLeft} />
               <InkTrail nodes={TRAVEL_DATA} unlockedCount={unlockedCount} scrollSpeed={scrollSpeed} />
 
               {TRAVEL_DATA.map((node, index) => (
